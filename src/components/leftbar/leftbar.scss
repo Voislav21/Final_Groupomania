@@ -1,0 +1,55 @@
+@import "../../styles.scss";
+
+.leftbar {
+  @include themify($themes) {
+    width: 20%;
+    position: sticky;
+    top: 70px;
+    height: calc(100vh - 70px);
+    background-color: themed("bg");
+    color: themed("textColor");
+
+    @include mobile {
+      display: none;
+    }
+
+    .container {
+      padding: 20px;
+
+      hr {
+        margin: 20px 0;
+        border: none;
+        height: 0.5px;
+        background-color: themed("border");
+      }
+
+      button {
+        width: 150px;
+        border: none;
+        padding: 10px;
+        border-radius: 5px;
+        font-weight: 500;
+      }
+
+      .menu {
+        display: flex;
+        flex-direction: column;
+
+        .leftbar-list-item {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+
+          .leftbar-icon {
+            padding: 10px 10px;
+          }
+
+          span {
+            font-size: 14px;
+            cursor: pointer;
+          }
+        }
+      }
+    }
+  }
+}
