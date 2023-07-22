@@ -49,3 +49,15 @@ $themes: (
     @content;
   }
 }
+
+@mixin tablet {
+  @media (max-width: 960px) {
+    @content;
+  }
+}
+
+body {
+  @include mobile {
+    width: fit-content;
+  }
+}

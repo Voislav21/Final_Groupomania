@@ -59,12 +59,22 @@
         flex-direction: column-reverse;
       }
 
+      @include tablet {
+        display: flex;
+        flex-direction: column-reverse;
+      }
+
       .sharing {
         flex: 6;
         padding: 20px 70px;
 
         @include mobile{
           padding: 10px;
+        }
+
+        @include tablet {
+          padding: 10px;
+          
         }
       }
     }
