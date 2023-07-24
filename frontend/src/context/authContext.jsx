@@ -1,4 +1,5 @@
 import { createContext, useEffect, useState } from "react";
+import axios from "axios";
 
 export const AuthContext = createContext();
 
@@ -7,13 +8,8 @@ export const AuthContextProvider = ({ children }) => {
     JSON.parse (localStorage.getItem("user")) || null
   );
 
-  const login = () => {
-    setCurrentUser({
-      id: 1,
-      name: "Mario Mario",
-      profilePic: "/assets/person/mario.png"
-    });
-    //TODO
+  const login = (inputs) => {
+    setCurrentUser(inputs);
   };
 
   useEffect(() => {

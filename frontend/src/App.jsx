@@ -16,6 +16,7 @@ import {
 import { useContext } from "react";
 import { DarkModeContext } from "./context/darkModeContext";
 import { AuthContext } from "./context/authContext";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 function App() {
 
@@ -23,22 +24,26 @@ function App() {
 
   const { darkMode } = useContext(DarkModeContext);
 
+  const queryClient = new QueryClient();
+
 
   const Layout = () => {
     const location = useLocation();
     const isProfilePage = location.pathname.startsWith("/profile");
 
     return (
-      <div className={`theme-${darkMode ? "dark" : "light"}`}>
-        <Navbar />
-        <div className="main">
-          <Leftbar />
-          <div style={{ flex: 6 }}>
-            <Outlet />
+      <QueryClientProvider client={queryClient}>
+        <div className={`theme-${darkMode ? "dark" : "light"}`}>
+          <Navbar />
+          <div className="main">
+            <Leftbar />
+            <div style={{ flex: 6 }}>
+              <Outlet />
+            </div>
+            {!isProfilePage && <Rightbar />}
           </div>
-          {!isProfilePage && <Rightbar />}
         </div>
-      </div>
+      </QueryClientProvider>
     );
   };
 

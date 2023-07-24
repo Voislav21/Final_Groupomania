@@ -23,7 +23,7 @@ const Post = ({ post }) => {
             <img src={post.profilePic} alt="" />
             <div className="details">
               <Link to={`/profile/${post.userId}`} style={{ textDecoration: "none", color: "inherit" }} >
-                <span className="name">{post.name}</span>
+                <span className="name">{post.firstName} {post.lastName}</span>
               </Link>
               <span className="date">1 min ago</span>
             </div>
@@ -32,7 +32,7 @@ const Post = ({ post }) => {
         </div>
         <div className="content">
           <p>{post.desc}</p>
-          <img src={post.img} alt="" />
+          <img src={"../uploads/" + post.img} alt="" />
         </div>
         <div className="info">
           <div className="item">
