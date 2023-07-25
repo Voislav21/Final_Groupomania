@@ -39,6 +39,8 @@ const Share = () => {
     let imgUrl = "";
     if (file) imgUrl = await upload();
     mutation.mutate({ desc, img: imgUrl });
+    setDesc("");
+    setFile(null);
   };
 
   return (
@@ -47,7 +49,7 @@ const Share = () => {
         <div className="share-top">
           <img src={currentUser.profilePic} alt="" className="profile-pic" />
           <input type="text" placeholder="Share your thoughts" className="input"
-            onChange={(event) => setDesc(event.target.value)} />
+            onChange={(event) => setDesc(event.target.value)} value={desc}/>
         </div>
         <hr className="hr" />
         <div className="preview">

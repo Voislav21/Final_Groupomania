@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { makeRequest } from "../../axios.js";
 
 const Posts = () => {
+
   const { isLoading, error, data } = useQuery(["posts"], () => 
     makeRequest.get("/posts").then ((res) => {
       return res.data;

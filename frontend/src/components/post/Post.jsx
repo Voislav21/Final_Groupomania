@@ -7,13 +7,14 @@ import "./post.scss";
 import { MoreHorizOutlined } from "@mui/icons-material";
 import Comments from "../comments/Comments";
 import { useState } from "react";
+import moment from "moment";
 
 const Post = ({ post }) => {
 
-  const[commentOpen, setCommentOpen] = useState(false);
+  const [commentOpen, setCommentOpen] = useState(false);
 
   //TEMP
-  const liked = false;
+  const liked = true;
 
   return (
     <div className="post">
@@ -25,7 +26,7 @@ const Post = ({ post }) => {
               <Link to={`/profile/${post.userId}`} style={{ textDecoration: "none", color: "inherit" }} >
                 <span className="name">{post.firstName} {post.lastName}</span>
               </Link>
-              <span className="date">1 min ago</span>
+              <span className="date">{moment(post.createdAt).fromNow()}</span>
             </div>
           </div>
           <MoreHorizOutlined />
@@ -36,7 +37,7 @@ const Post = ({ post }) => {
         </div>
         <div className="info">
           <div className="item">
-            {liked ? <FavoriteOutlined /> : <FavoriteBorder />}
+            {liked ? <FavoriteOutlined style={{ color: "pink" }} /> : <FavoriteBorder />}
             12 Likes
           </div>
           <div className="item" onClick={() => setCommentOpen(!commentOpen)}>
@@ -48,7 +49,7 @@ const Post = ({ post }) => {
             Share
           </div>
         </div>
-        {commentOpen && <Comments />}
+        {commentOpen && <Comments postId={post.id} />}
       </div>
     </div>
   );

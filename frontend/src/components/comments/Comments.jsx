@@ -1,44 +1,56 @@
-import { useContext } from "react";
-import {AuthContext} from "../../context/authContext";
+import { useContext, useState } from "react";
+import { AuthContext } from "../../context/authContext";
 import "./comments.scss";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { makeRequest } from "../../axios.js";
+import moment from "moment";
 
-const Comments = () => {
+const Comments = ({ postId }) => {
 
-  const {currentUser} = useContext(AuthContext);
+  const [desc, setDesc] = useState("");
 
-  //TEMP 
-  const comments = [
+  const { currentUser } = useContext(AuthContext);
+
+  const { isLoading, error, data } = useQuery(["comments"], () =>
+    makeRequest.get("/comments?postId=" + postId).then((res) => {
+      console.log(res.data);
+      return res.data;
+    })
+    );
+
+  const queryClient = useQueryClient();
+
+  const mutation = useMutation((newComment) => {
+    return makeRequest.post("/comments", newComment);
+  },
     {
-      id: 1,
-      desc: "I wouldnt exactly call this an invitation Mario? Get over Peach bro, shes not into you like that!",
-      name: "Luigi",
-      userId: 2,
-      profilePic: "/assets/person/luigi.jpeg",
-    },
-    {
-      id: 2,
-      desc: "First you both have to try and save her from me!! Mwahahaha, You will never get through my maze",
-      name: "Bowser",
-      userId: 3,
-      profilePic: "/assets/person/Bowser.png",
-    },
-  ];
-  
+      onSuccess: () => {
+        queryClient.invalidateQueries(["comments"]);
+      },
+    }
+  );
+
+  const handleClick = async (event) => {
+    event.preventDefault();
+    mutation.mutate({ desc, postId });
+    setDesc("");
+  };
+
   return (
     <div className="comments">
       <div className="write">
         <img src={currentUser.profilePic} alt="" />
-        <input placeholder="Write a comment" />
-        <button>Send</button>
+        <input type="text" placeholder="Write a comment" value={desc} onChange={(event) => setDesc(event.target.value)}/>
+        <button onClick={handleClick}>Send</button>
       </div>
-      {comments.map(comment => (
+      {isLoading ? "Fecthing data" : data.map(comment => (
         <div className="comment" key={comment.id}>
           <img src={comment.profilePic} alt="" />
           <div className="info">
-            <span>{comment.name}</span>
+            <span>{comment.firstName} {comment.lastName}</span>
             <p>{comment.desc}</p>
           </div>
-          <span className="date">1 hour ago</span>
+          <span className="date">{moment(comment.createdAt).fromNow()}</span>
         </div>
       ))}
     </div>
