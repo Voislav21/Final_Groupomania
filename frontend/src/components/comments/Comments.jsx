@@ -13,10 +13,9 @@ const Comments = ({ postId }) => {
 
   const { isLoading, error, data } = useQuery(["comments"], () =>
     makeRequest.get("/comments?postId=" + postId).then((res) => {
-      console.log(res.data);
       return res.data;
     })
-    );
+  );
 
   const queryClient = useQueryClient();
 
@@ -40,7 +39,7 @@ const Comments = ({ postId }) => {
     <div className="comments">
       <div className="write">
         <img src={currentUser.profilePic} alt="" />
-        <input type="text" placeholder="Write a comment" value={desc} onChange={(event) => setDesc(event.target.value)}/>
+        <input type="text" placeholder="Write a comment" value={desc} onChange={(event) => setDesc(event.target.value)} />
         <button onClick={handleClick}>Send</button>
       </div>
       {isLoading ? "Fecthing data" : data.map(comment => (
