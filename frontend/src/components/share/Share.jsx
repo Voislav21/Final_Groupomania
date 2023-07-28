@@ -47,13 +47,14 @@ const Share = () => {
     <div className="share">
       <div className="wrapper">
         <div className="share-top">
-          <img src={currentUser.profilePic} alt="" className="profile-pic" />
+          <img src={"/uploads/" + currentUser.profilePic} alt="" className="profile-pic" />
           <input type="text" placeholder="Share your thoughts" className="input"
             onChange={(event) => setDesc(event.target.value)} value={desc}/>
         </div>
         <hr className="hr" />
         <div className="preview">
-          {file && <img className="file" alt="" src={URL.createObjectURL(file)} />}
+          {file && (
+          <img className="file" alt="" src={URL.createObjectURL(file)} />)}
         </div>
         <div className="share-bottom">
           <div className="options">

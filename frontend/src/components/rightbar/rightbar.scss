@@ -117,7 +117,8 @@
     }
 
     .info {
-      margin-bottom: 30px;
+      display: flex;
+      flex-direction: column;
 
       .items {
         margin-bottom: 10px;
@@ -131,6 +132,17 @@
         .value {
           font-weight: 300;
         }
+      }
+
+      button {
+        width: 50%;
+        align-self: center;
+        border: none;
+        background-color: #5271ff;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
       }
     }
   }

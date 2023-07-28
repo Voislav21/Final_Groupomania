@@ -1,5 +1,9 @@
 import { useLocation } from "react-router-dom";
 import "./rightbar.scss";
+import { useQuery } from "@tanstack/react-query";
+import { makeRequest } from "../../axios";
+import { useContext } from "react";
+import { AuthContext } from "../../context/authContext";
 
 const Rightbar = ({ profile }) => {
 
@@ -38,22 +42,33 @@ const Rightbar = ({ profile }) => {
   };
 
   const ProfileRightBar = () => {
+    const userId = parseInt(useLocation().pathname.split("/")[2]);
+
+    const { isLoading, error, data } = useQuery(["user"], () =>
+      makeRequest.get("/users/find/" + userId).then((res) => {
+        return res.data;
+      })
+    );
+
+    const currentUser = useContext(AuthContext);
+
     return (
       <div className="profileRightbar">
         <h4 className="title">User information</h4>
         <div className="info">
           <div className="items">
             <span className="key">City:</span>
-            <span className="value">Bordeaux</span>
+            <span className="value">{data.city}</span>
           </div>
           <div className="items">
             <span className="key">From:</span>
-            <span className="value">Gold Coast</span>
+            <span className="value">{data.from}</span>
           </div>
           <div className="items">
             <span className="key">Relationship:</span>
-            <span className="value">Married</span>
+            <span className="value">{data.relationship}</span>
           </div>
+          {userId === currentUser.currentUser.id ? (<button>Edit</button>) : (null)}
         </div>
       </div>
     )

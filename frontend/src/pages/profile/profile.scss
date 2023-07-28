@@ -46,6 +46,16 @@
           font-weight: 300;
         }
 
+        button {
+          margin-top: 20px;
+          border: none;
+          background-color: #5271ff;
+          color: white;
+          padding: 10px 20px;
+          border-radius: 5px;
+          cursor: pointer;
+        }
+
       }
 
     }
@@ -68,13 +78,13 @@
         flex: 6;
         padding: 20px 70px;
 
-        @include mobile{
+        @include mobile {
           padding: 10px;
         }
 
         @include tablet {
           padding: 10px;
-          
+
         }
       }
     }
