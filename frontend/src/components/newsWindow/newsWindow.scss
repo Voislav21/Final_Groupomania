@@ -1,0 +1,81 @@
+@import "../../styles.scss";
+
+.news-window {
+  @include themify($themes) {
+    margin-bottom: 20px;
+
+    h2 {
+      margin-bottom: 15px;
+      text-decoration: underline;
+      color: themed("textColor");
+    }
+
+    a {
+      text-decoration: none;
+      color: themed("textColor");
+      font-size: 12px;
+    }
+
+    .slick-slider {
+      height: 300px;
+      overflow: hidden;
+
+      .slick-prev,
+      .slick-next {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 1;
+        width: 30px;
+        height: 30px;
+        background-color: themed("bg");
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      .slick-prev {
+        left: 5px;
+      }
+
+      .slick-next {
+        right: 5px;
+      }
+
+      .slick-prev:before,
+      .slick-next:before {
+        font-family: "slick";
+        font-size: 20px;
+        line-height: .5;
+        opacity: 0.75;
+        color: themed("textColor");
+      }
+
+      .slick-prev:before {
+        content: "<";
+      }
+
+      .slick-next:before {
+        content: ">";
+      }
+    }
+
+    .slick-slide {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .slick-slide img {
+      width: 100%;
+      /* Make the image fill the entire slide width */
+      height: 300px;
+      /* Make the image fill the entire slide height */
+      object-fit: cover;
+      /* Maintain aspect ratio and crop the image to fit */
+    }
+  }
+}

@@ -22,7 +22,7 @@ const Profile = () => {
 	);
 
 	const { isLoading: fsIsloading, data: friendshipData } = useQuery(["friendship"], () =>
-		makeRequest.get("friendships?friendId=" + userId).then((res) => {
+		makeRequest.get("/friendships?friendId=" + userId).then((res) => {
 			return res.data;
 		})
 	);

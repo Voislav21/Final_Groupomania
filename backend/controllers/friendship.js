@@ -2,13 +2,27 @@ import { db } from "../connect.js";
 import jwt from "jsonwebtoken";
 
 export const getFriendships = (req, res) => {
-  const q = "SELECT userId FROM friendships WHERE friendId = ?";
+  const q = `SELECT userId FROM friendships WHERE friendId = ?`;
 
   db.query(q, [req.query.friendId], (error, data) => {
     if (error) return res.status(500).json(error);
     return res.status(200).json(data.map(friendship => friendship.userId));
   });
 };
+
+export const getFriends = (req, res) => {
+  const q = `
+  SELECT f.friendId, u.firstName, u.lastName, u.profilePic 
+  FROM friendships AS f 
+  JOIN users AS u ON f.friendId = u.id
+  WHERE f.userId = ?`;
+
+  db.query(q, [req.query.userId], (error, data) => {
+    if (error) return res.status(500).json(error);
+    return res.status(200).json(data);
+  });
+};
+
 
 export const addFriendship = (req, res) => {
   const token = req.cookies.accessToken;
@@ -26,7 +40,7 @@ export const addFriendship = (req, res) => {
 
     db.query(q, [values], (error, data) => {
       if (error) return res.status(500).json(error);
-      return res.status(200).json("Friendship requested");
+      return res.status(200).json("Friendship added");
     });
   });
 };

@@ -1,42 +1,46 @@
-import { useLocation } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
 import "./rightbar.scss";
 import { useQuery } from "@tanstack/react-query";
 import { makeRequest } from "../../axios";
 import { useContext } from "react";
 import { AuthContext } from "../../context/authContext";
+import NewsWindow from "../newsWindow/NewsWindow.jsx";
 
 const Rightbar = ({ profile }) => {
 
   const location = useLocation();
   const isHomepage = location.pathname === "/";
 
+  const { currentUser } = useContext(AuthContext);
+
+  const { isLoading, data } = useQuery(["friends"], () =>
+    makeRequest.get("/friendships/friends?userId=" + currentUser.id).then((res) => {
+      return res.data;
+    }),
+  );
+
   const HomeRightBar = () => {
     return (
       <>
-        <img src="/assets/add.png" alt="" className="rightbar-add" />
-        <div className="item">
-          <span>Suggestions for you</span>
-          <div className="user">
-            <div className="userInfo">
-              <img src="/assets/person/luigi.jpeg" />
-              <span>Luigi Mario</span>
-            </div>
-            <div className="buttons">
-              <button>Add Friend</button>
-              <button>No Thanks</button>
-            </div>
-          </div>
-        </div>
-        <div className="item">
-          <span>Online Friends</span>
-          <div className="user">
-            <div className="userInfo">
-              <img src="/assets/person/toad.jpeg" alt="" />
-              <div className="online" />
-              <span>Mr. Toadstal</span>
-            </div>
-          </div>
-        </div>
+        <Link to={"https://openclassrooms.com/en/"} target="._blank" rel="noopener noreferrer">
+          <img src="/assets/add.png" alt="" className="rightbar-add" />
+        </Link>
+        {data?.length > 0 && (
+          <div className="item">
+            <span>Friends</span>
+            {data.map((friend) => (
+              <div className="user" key={friend.friendId}>
+                <Link to={`/profile/${friend.friendId}`} style={{ textDecoration: "none", color: "inherit" }}>
+                  <div className="userInfo">
+                    <img src={`/uploads/${friend.profilePic}`} />
+                    <span>{friend.firstName} {friend.lastName}</span>
+                  </div>
+                </Link>
+              </div>
+            ))}
+          </div >
+        )}
+        <NewsWindow />
       </>
     );
   };
@@ -49,8 +53,6 @@ const Rightbar = ({ profile }) => {
         return res.data;
       })
     );
-
-    const currentUser = useContext(AuthContext);
 
     return (
       <div className="profileRightbar">
@@ -68,7 +70,6 @@ const Rightbar = ({ profile }) => {
             <span className="key">Relationship:</span>
             <span className="value">{data.relationship}</span>
           </div>
-          {userId === currentUser.currentUser.id ? (<button>Edit</button>) : (null)}
         </div>
       </div>
     )

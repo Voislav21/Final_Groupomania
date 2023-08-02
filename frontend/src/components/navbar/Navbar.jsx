@@ -20,11 +20,11 @@ const Navbar = () => {
   return (
     <div className="navbar">
       <div className="left">
-        <Link to="/" style={{ textDecoration: "none" }}>
+        <Link to="/" style={{ textDecoration: "none", cursor: "pointer" }}>
           <span>Groupomania</span>
         </Link>
         <HomeOutlinedIcon />
-        {darkMode ? <WbSunnyOutlined onClick={toggle}/> : <DarkModeOutlinedIcon onClick={toggle} />}
+        {darkMode ? <WbSunnyOutlined onClick={toggle} style={{ cursor: "pointer" }} /> : <DarkModeOutlinedIcon onClick={toggle} style={{ cursor: "pointer" }} />}
         <div className="search">
           <SearchOutlined />
           <input type="text" placeholder="Take a look around..." />
@@ -34,12 +34,14 @@ const Navbar = () => {
         <PersonOutlineOutlinedIcon />
         <EmailOutlinedIcon />
         <NotificationsNoneOutlinedIcon />
-        <div className="user">
-          <img src={"/uploads/" + currentUser.profilePic} alt="" />
-          <span>{currentUser.firstName} {currentUser.lastName}</span>
-        </div>
+        <Link to={`/profile/${currentUser.id}`} style={{ textDecoration: "none", color: "inherit" }}>
+          <div className="user">
+            <img src={"/uploads/" + currentUser.profilePic} alt="" />
+            <span>{currentUser.firstName} {currentUser.lastName}</span>
+          </div>
+        </Link>
       </div>
-    </div>
+    </div >
   );
 };
 

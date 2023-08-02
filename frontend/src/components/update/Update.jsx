@@ -6,8 +6,7 @@ import { CloudUpload } from "@mui/icons-material";
 import { AuthContext } from "../../context/authContext";
 
 const Update = ({ setOpenUpdate, user }) => {
-  const { currentUser } = useContext(AuthContext);
-  console.log(currentUser);
+  const { currentUser, updateUserProfile } = useContext(AuthContext);
   const [cover, setCover] = useState(null);
   const [profile, setProfile] = useState(null);
   const [texts, setTexts] = useState({
@@ -33,10 +32,19 @@ const Update = ({ setOpenUpdate, user }) => {
   const queryClient = useQueryClient();
 
   const mutation = useMutation((user) => {
-    return makeRequest.put("/users", user);
+    return makeRequest.put("/users/update/", user);
   },
     {
-      onSuccess: () => {
+      onSuccess: (data) => {
+        updateUserProfile(data.data);
+        setTexts({
+          firstName: data.firstName,
+          lastName: data.lastName,
+          bio: data.bio,
+          city: data.city,
+          from: data.from,
+          relationship: data.relationship,
+        });
         queryClient.invalidateQueries(["user"]);
       },
     }
@@ -85,17 +93,17 @@ const Update = ({ setOpenUpdate, user }) => {
             <input type="file" id="profile" style={{ display: "none" }} onChange={event => setProfile(event.target.files[0])} />
           </div>
           <label>First Name</label>
-          <input type="text" name="firstName" placeholder={currentUser.firstName} value={texts.firstName} onChange={handleChange} />
+          <input type="text" name="firstName" value={texts.firstName} onChange={handleChange} />
           <label>Last Name</label>
-          <input type="text" name="lastName" placeholder={currentUser.lastName} value={texts.lastName} onChange={handleChange} />
+          <input type="text" name="lastName" value={texts.lastName} onChange={handleChange} />
           <label>Bio</label>
-          <input type="text" name="bio" placeholder={currentUser.bio} value={texts.bio} onChange={handleChange} />
+          <input type="text" name="bio" value={texts.bio} onChange={handleChange} />
           <label>City</label>
-          <input type="text" name="city" placeholder={currentUser.city} value={texts.city} onChange={handleChange} />
+          <input type="text" name="city" value={texts.city} onChange={handleChange} />
           <label>From</label>
-          <input type="text" name="from" placeholder={currentUser.from} value={texts.from} onChange={handleChange} />
+          <input type="text" name="from" value={texts.from} onChange={handleChange} />
           <label>Relationship Status</label>
-          <input type="text" name="relationship" placeholder={currentUser.relationship} value={texts.relationship} onChange={handleChange} />
+          <input type="text" name="relationship" value={texts.relationship} onChange={handleChange} />
           <button onClick={handleSubmit}>Update</button>
         </form>
       </div>
