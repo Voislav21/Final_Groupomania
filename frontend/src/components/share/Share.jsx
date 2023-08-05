@@ -1,5 +1,6 @@
 import { useContext, useState } from "react";
 import "./share.scss";
+import profileDefault from "../../assets/profile-default.jpeg";
 import { PermMedia, Label, Room, EmojiEmotions } from "@mui/icons-material"
 import { AuthContext } from "../../context/authContext";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -43,11 +44,13 @@ const Share = () => {
     setFile(null);
   };
 
+  const imgUrl = "http://localhost:8080/api/uploads/";
+
   return (
     <div className="share">
       <div className="wrapper">
         <div className="share-top">
-          <img src={"/uploads/" + currentUser.profilePic} alt="" className="profile-pic" />
+          <img src={currentUser.profilePic ? imgUrl + currentUser.profilePic : profileDefault} alt="" className="profile-pic" />
           <input type="text" placeholder="Share your thoughts" className="input"
             onChange={(event) => setDesc(event.target.value)} value={desc}/>
         </div>

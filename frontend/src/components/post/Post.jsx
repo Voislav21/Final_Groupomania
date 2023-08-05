@@ -4,6 +4,7 @@ import { FavoriteBorder } from "@mui/icons-material"
 import { SmsOutlined } from "@mui/icons-material";
 import { ShareOutlined } from "@mui/icons-material";
 import "./post.scss";
+import profileDefault from "../../assets/profile-default.jpeg";
 import { MoreHorizOutlined } from "@mui/icons-material";
 import Comments from "../comments/Comments";
 import { useContext, useState } from "react";
@@ -63,12 +64,14 @@ const Post = ({ post }) => {
     deleteMutation.mutate(post.id);
   };
 
+  const imgUrl = "http://localhost:8080/api/uploads/";
+
   return (
     <div className="post">
       <div className="container">
         <div className="user">
           <div className="userInfo">
-            <img src={"/uploads/" + post.profilePic} alt="" />
+            <img src={post.profilePic ? imgUrl + post.profilePic : profileDefault} alt="" />
             <div className="details">
               <Link to={`/profile/${post.userId}`} style={{ textDecoration: "none", color: "inherit" }} >
                 <span className="name">{post.firstName} {post.lastName}</span>
@@ -83,7 +86,7 @@ const Post = ({ post }) => {
         </div>
         <div className="content">
           <p>{post.desc}</p>
-          <img src={"../uploads/" + post.img} alt="" />
+          <img src={imgUrl + post.img} alt="" />
         </div>
         <div className="info">
           <div className="item">

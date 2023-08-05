@@ -1,5 +1,6 @@
 import { useLocation, Link } from "react-router-dom";
 import "./rightbar.scss";
+import profileDefault from "../../assets/profile-default.jpeg";
 import { useQuery } from "@tanstack/react-query";
 import { makeRequest } from "../../axios";
 import { useContext } from "react";
@@ -19,6 +20,8 @@ const Rightbar = ({ profile }) => {
     }),
   );
 
+  const imgUrl = "http://localhost:8080/api/uploads/";
+
   const HomeRightBar = () => {
     return (
       <>
@@ -32,7 +35,7 @@ const Rightbar = ({ profile }) => {
               <div className="user" key={friend.friendId}>
                 <Link to={`/profile/${friend.friendId}`} style={{ textDecoration: "none", color: "inherit" }}>
                   <div className="userInfo">
-                    <img src={`/uploads/${friend.profilePic}`} />
+                    <img src={friend.profilePic ? imgUrl + friend.profilePic : profileDefault} />
                     <span>{friend.firstName} {friend.lastName}</span>
                   </div>
                 </Link>

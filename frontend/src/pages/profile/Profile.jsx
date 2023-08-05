@@ -4,6 +4,8 @@ import Rightbar from "../../components/rightbar/Rightbar";
 import Share from "../../components/share/Share";
 import Update from "../../components/update/Update";
 import "./profile.scss";
+import profileDefault from "../../assets/profile-default.jpeg";
+import coverDefault from "../../assets/cover-default.png";
 import { AuthContext } from "../../context/authContext";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { makeRequest } from "../../axios";
@@ -29,7 +31,8 @@ const Profile = () => {
 
 	const queryClient = useQueryClient();
 
-	const mutation = useMutation((friends) => {
+	const mutation = useMutation(
+		(friends) => {
 		if (friends) return makeRequest.delete("/friendships?userId=" + userId);
 		return makeRequest.post("/friendships", { userId });
 	},
@@ -44,13 +47,15 @@ const Profile = () => {
 		mutation.mutate(friendshipData.includes(currentUser.id));
 	};
 
+	const imgUrl = "http://localhost:8080/api/uploads/";
+
 
 	return (
 		<div className="profile">
 			{isLoading ? "loading" : <> <div className="top">
 				<div className="cover">
-					<img src={"/uploads/" + data.coverPic} alt="" className="cover-img" />
-					<img src={"/uploads/" + data.profilePic} alt="" className="user-img" />
+					<img src={data.coverPic ? imgUrl + data.coverPic : coverDefault} alt="" className="cover-img" />
+					<img src={data.profilePic ? imgUrl + data.profilePic : profileDefault} alt="" className="user-img" />
 				</div>
 				<div className="info">
 					<h4>{data.firstName} {data.lastName}</h4>

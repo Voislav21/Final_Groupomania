@@ -1,20 +1,47 @@
 import "./navbar.scss";
-import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
-import DarkModeOutlinedIcon from '@mui/icons-material/DarkModeOutlined';
-import { WbSunnyOutlined } from "@mui/icons-material";
-import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
-import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
-import NotificationsNoneOutlinedIcon from '@mui/icons-material/NotificationsNoneOutlined';
-import { Link } from "react-router-dom";
-import { SearchOutlined } from "@mui/icons-material";
-import { useContext } from "react";
+import profileDefault from "../../assets/profile-default.jpeg";
+import { WbSunnyOutlined, HomeOutlined, DarkModeOutlined, EmailOutlined, NotificationsNoneOutlined, SearchOutlined, LogoutOutlined } from "@mui/icons-material";
+import { Link, useNavigate } from "react-router-dom";
+import { useContext, useState } from "react";
 import { DarkModeContext } from "../../context/darkModeContext";
 import { AuthContext } from "../../context/authContext";
+import axios from "axios";
+import SearchResults from "../searchResults/SearchResults.jsx";
 
 const Navbar = () => {
 
   const { toggle, darkMode } = useContext(DarkModeContext);
   const { currentUser } = useContext(AuthContext);
+  const { logout } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const imgUrl = "http://localhost:8080/api/uploads/";
+
+  const [searchQuery, setSearchQuery] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
+
+  const handleLogout = async () => {
+    try {
+      const response = await axios.post("http://localhost:8080/api/auth/logout", {
+        withCredentials: true,
+      });
+      navigate("/");
+      logout(response.data);
+    } catch (error) {
+      console.error("Error occured during logout:", error);
+    }
+  };
+
+  const handleSearch = async (event) => {
+    const query = event.target.value;
+    setSearchQuery(query);
+    try {
+      const response = await axios.get(`http://localhost:8080/api/users/search?q=${query}`);
+      setSearchResults(response.data);
+    } catch (error) {
+      console.error("Error occurred during search:", error);
+    }
+  };
+
 
 
   return (
@@ -23,20 +50,21 @@ const Navbar = () => {
         <Link to="/" style={{ textDecoration: "none", cursor: "pointer" }}>
           <span>Groupomania</span>
         </Link>
-        <HomeOutlinedIcon />
-        {darkMode ? <WbSunnyOutlined onClick={toggle} style={{ cursor: "pointer" }} /> : <DarkModeOutlinedIcon onClick={toggle} style={{ cursor: "pointer" }} />}
+        <HomeOutlined />
+        {darkMode ? <WbSunnyOutlined onClick={toggle} style={{ cursor: "pointer" }} /> : <DarkModeOutlined onClick={toggle} style={{ cursor: "pointer" }} />}
         <div className="search">
           <SearchOutlined />
-          <input type="text" placeholder="Take a look around..." />
+          <input type="text" placeholder="Take a look around..." value={searchQuery} onChange={handleSearch} />
+          {searchQuery && <SearchResults results={searchResults} />}
         </div>
       </div>
       <div className="right">
-        <PersonOutlineOutlinedIcon />
-        <EmailOutlinedIcon />
-        <NotificationsNoneOutlinedIcon />
+        <EmailOutlined />
+        <NotificationsNoneOutlined />
+        <LogoutOutlined onClick={handleLogout} style={{ cursor: "pointer" }} />
         <Link to={`/profile/${currentUser.id}`} style={{ textDecoration: "none", color: "inherit" }}>
           <div className="user">
-            <img src={"/uploads/" + currentUser.profilePic} alt="" />
+            <img src={currentUser.profilePic ? imgUrl + currentUser.profilePic : profileDefault} alt="" />
             <span>{currentUser.firstName} {currentUser.lastName}</span>
           </div>
         </Link>

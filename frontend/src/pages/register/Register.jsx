@@ -1,9 +1,10 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./register.scss";
 import { useState } from "react";
 import axios from "axios";
 import * as Yup from "yup";
 import { useFormik } from "formik";
+import LoginForm from "../login/Login.jsx"
 
 const validationSchema = Yup.object().shape({
   firstName: Yup.string().required('First name is required'),
@@ -14,6 +15,7 @@ const validationSchema = Yup.object().shape({
 
 const Register = () => {
 
+  const navigate = useNavigate();
   const [formSubmit, setFormSubmit] = useState(false);
   const formik = useFormik({
     initialValues: {
@@ -26,8 +28,8 @@ const Register = () => {
     onSubmit: async (values, { setErrors }) => {
       try {
         await axios.post("http://localhost:8080/api/auth/register", values);
-        console.log('registration successfull');
         setFormSubmit(true);
+        navigate("/login", { state: { successMessage: "Registration successful, please login!" } });
       } catch (error) {
         setErrors({ email: error.response.data });
       }
@@ -71,7 +73,7 @@ const Register = () => {
           </form>
         </div>
       </div>
-    </div>
+    </div >
   );
 };
 

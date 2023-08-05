@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import "./login.scss";
 import { useContext } from "react";
 import { AuthContext } from "../../context/authContext";
@@ -9,6 +9,8 @@ import axios from "axios";
 const Login = () => {
 	const navigate = useNavigate();
 	const { login } = useContext(AuthContext);
+	const location = useLocation();
+	const successMessage = location.state?.successMessage;
 
 	const formik = useFormik({
 		initialValues: {
@@ -27,7 +29,7 @@ const Login = () => {
 				navigate("/");
 				login(response.data);
 			} catch (error) {
-					setErrors ({ email: error.response.data});
+				setErrors({ email: error.response.data });
 			}
 		},
 	});
@@ -42,22 +44,23 @@ const Login = () => {
 						If this is your first time visiting, you'll will be in awe at the possibilities of
 						connection thats just like full connect to like everyone who do and dont know!!
 					</p>
-					<span>Been here before?</span>
+					<span>First time visiting?</span>
 					<Link to="/register">
 						<button>Register</button>
 					</Link>
 				</div>
 				<div className="right">
 					<h1>Login</h1>
+					{successMessage && <h4>{successMessage}</h4>}
 					<form onSubmit={formik.handleSubmit}>
-						<input type="text" placeholder="Email" {...formik.getFieldProps("email")}/>
+						<input type="text" placeholder="Email" {...formik.getFieldProps("email")} />
 						{formik.touched.email && formik.errors.email ? (
 							<div>{formik.errors.email}</div>
-						) : null }
-						<input type="password" placeholder="Password" {...formik.getFieldProps("password")}/>
+						) : null}
+						<input type="password" placeholder="Password" {...formik.getFieldProps("password")} />
 						{formik.touched.password && formik.errors.password ? (
 							<div>{formik.errors.password}</div>
-						) : null }
+						) : null}
 						<button type="submit">Login</button>
 					</form>
 				</div>

@@ -1,0 +1,42 @@
+@import "../../styles.scss";
+
+.search-results-box {
+  @include themify ($themes) {
+
+    margin-top: 0px;
+    position: absolute;
+    top: 100%;
+    left: 288px;
+    width: 40%;
+    max-height: 200px;
+    overflow-y: auto;
+    background-color: themed("bg");
+    border: 1px solid themed("border");
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 8px;
+    z-index: 1;
+
+    .search-result-item {
+      padding: 5px;
+      cursor: pointer;
+
+      a {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+      }
+
+      img {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        object-fit: cover;
+      }
+
+      &:hover {
+        background-color: themed("bgSoft");
+      }
+    }
+  }
+}

@@ -1,6 +1,7 @@
 import { db } from "../connect.js";
 import jwt from "jsonwebtoken";
 import moment from "moment";
+import fs from "fs";
 
 export const getPosts = (req, res) => {
 
@@ -65,6 +66,24 @@ export const deletePost = (req, res) => {
 
   jwt.verify(token, "secretkey", (error, userInfo) => {
     if (error) return res.status(403).json("Token is not valid!");
+
+    const unlinkQuery = "SELECT img FROM posts WHERE `id` = ? AND `userId` = ?";
+    db.query(unlinkQuery, [req.params.id, userInfo.id], (error, result) => {
+      if (error) return res.status(500).json(error);
+      if (result.length === 0) return res.status(403).json("You can delete only your posts");
+
+      const imgFilename = result[0].img;
+
+      if (imgFilename) {
+        fs.unlink(`uploads/${imgFilename}`, (error) => {
+          if (error) {
+            console.error("Error deleting post image:", error);
+          } else {
+            console.log("Post image deleted successfully");
+          }
+        });
+      }
+    });
 
     const q = "DELETE FROM posts WHERE `id` = ? AND `userID` = ?";
 
