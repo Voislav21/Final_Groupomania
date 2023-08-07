@@ -9,10 +9,11 @@ import moment from "moment";
 const Comments = ({ postId }) => {
 
   const [desc, setDesc] = useState("");
+  const commentsQueryKey = ["comments", postId];
 
   const { currentUser } = useContext(AuthContext);
 
-  const { isLoading, error, data } = useQuery(["comments"], () =>
+  const { isLoading, error, data } = useQuery(commentsQueryKey, () =>
     makeRequest.get("/comments?postId=" + postId).then((res) => {
       return res.data;
     })
@@ -25,7 +26,7 @@ const Comments = ({ postId }) => {
   },
     {
       onSuccess: () => {
-        queryClient.invalidateQueries(["comments"]);
+        queryClient.invalidateQueries(commentsQueryKey);
       },
     }
   );

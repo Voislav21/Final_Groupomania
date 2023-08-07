@@ -26,18 +26,19 @@ const Post = ({ post }) => {
     })
   );
 
-  const { isLoading: isLoadingComments, data: comments } = useQuery(["comments", post.id], () => {
-    return makeRequest.get("/comments?postId=" + post.id).then((res) => {
+  const { isLoading: isLoadingComments, data: comments } = useQuery(["comments", post.id], () =>
+    makeRequest.get("/comments?postId=" + post.id).then((res) => {
       return res.data;
     })
-  });
+  );
 
   const queryClient = useQueryClient();
 
-  const mutation = useMutation((liked) => {
-    if (liked) return makeRequest.delete("/likes?postId=" + post.id);
-    return makeRequest.post("/likes", { postId: post.id });
-  },
+  const mutation = useMutation(
+    (liked) => {
+      if (liked) return makeRequest.delete("/likes?postId=" + post.id);
+      return makeRequest.post("/likes", { postId: post.id });
+    },
     {
       onSuccess: () => {
         queryClient.invalidateQueries(["likes"]);

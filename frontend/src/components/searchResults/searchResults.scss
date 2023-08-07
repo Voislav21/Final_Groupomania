@@ -3,11 +3,10 @@
 .search-results-box {
   @include themify ($themes) {
 
-    margin-top: 0px;
     position: absolute;
     top: 100%;
-    left: 288px;
-    width: 40%;
+    left: 0;
+    right: 0;
     max-height: 200px;
     overflow-y: auto;
     background-color: themed("bg");

@@ -3,7 +3,7 @@ import "./searchResults.scss";
 import profileDefault from "../../assets/profile-default.jpeg";
 import { Link } from "react-router-dom";
 
-const SearchResults = ({ results }) => {
+const SearchResults = ({ results, onResultClick }) => {
   const imgUrl = "http://localhost:8080/api/uploads/";
 
   return (
@@ -12,7 +12,7 @@ const SearchResults = ({ results }) => {
         <>
           {results.map((user) => (
             <div key={user.id} className="search-result-item">
-              <Link to={`/profile/${user.id}`} style={{ textDecoration: "none", color: "inherit" }}>
+              <Link to={`/profile/${user.id}`} style={{ textDecoration: "none", color: "inherit" }} onClick={onResultClick}>
                 <img src={user.profilePic ? imgUrl + user.profilePic : profileDefault} alt="" />
                 {user.firstName} {user.lastName}
               </Link>

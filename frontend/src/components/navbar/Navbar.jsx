@@ -42,6 +42,11 @@ const Navbar = () => {
     }
   };
 
+  const handleResultClick = () => {
+    // Hide the search results when clicking on a search result link
+    setSearchQuery("");
+  };
+
 
 
   return (
@@ -53,9 +58,11 @@ const Navbar = () => {
         <HomeOutlined />
         {darkMode ? <WbSunnyOutlined onClick={toggle} style={{ cursor: "pointer" }} /> : <DarkModeOutlined onClick={toggle} style={{ cursor: "pointer" }} />}
         <div className="search">
-          <SearchOutlined />
-          <input type="text" placeholder="Take a look around..." value={searchQuery} onChange={handleSearch} />
-          {searchQuery && <SearchResults results={searchResults} />}
+          <div className="search-wrapper">
+            <SearchOutlined />
+            <input type="text" placeholder="Take a look around..." value={searchQuery} onChange={handleSearch} />
+            {searchQuery && <SearchResults results={searchResults} onResultClick={handleResultClick} />}
+          </div>
         </div>
       </div>
       <div className="right">

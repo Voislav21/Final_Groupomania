@@ -63,15 +63,15 @@ const Rightbar = ({ profile }) => {
         <div className="info">
           <div className="items">
             <span className="key">City:</span>
-            <span className="value">{data.city}</span>
+            <span className="value">{data?.city}</span>
           </div>
           <div className="items">
             <span className="key">From:</span>
-            <span className="value">{data.from}</span>
+            <span className="value">{data?.from}</span>
           </div>
           <div className="items">
             <span className="key">Relationship:</span>
-            <span className="value">{data.relationship}</span>
+            <span className="value">{data?.relationship}</span>
           </div>
         </div>
       </div>

@@ -3,6 +3,7 @@ import Posts from "../../components/posts/Posts";
 import Rightbar from "../../components/rightbar/Rightbar";
 import Share from "../../components/share/Share";
 import Update from "../../components/update/Update";
+import Comments from "../../components/comments/Comments"
 import "./profile.scss";
 import profileDefault from "../../assets/profile-default.jpeg";
 import coverDefault from "../../assets/cover-default.png";
@@ -17,13 +18,13 @@ const Profile = () => {
 
 	const userId = parseInt(useLocation().pathname.split("/")[2]);
 
-	const { isLoading, error, data } = useQuery(["user"], () =>
+	const { isLoading, error, data } = useQuery(["user", userId], () =>
 		makeRequest.get("/users/find/" + userId).then((res) => {
 			return res.data;
 		})
 	);
 
-	const { isLoading: fsIsloading, data: friendshipData } = useQuery(["friendship"], () =>
+	const { isLoading: fsIsloading, data: friendshipData } = useQuery(["friendship", userId], () =>
 		makeRequest.get("/friendships?friendId=" + userId).then((res) => {
 			return res.data;
 		})
@@ -33,9 +34,9 @@ const Profile = () => {
 
 	const mutation = useMutation(
 		(friends) => {
-		if (friends) return makeRequest.delete("/friendships?userId=" + userId);
-		return makeRequest.post("/friendships", { userId });
-	},
+			if (friends) return makeRequest.delete("/friendships?userId=" + userId);
+			return makeRequest.post("/friendships", { userId });
+		},
 		{
 			onSuccess: () => {
 				queryClient.invalidateQueries(["friendship"]);
