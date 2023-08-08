@@ -52,8 +52,8 @@ export const updateUser = (req, res) => {
       "lastName",
       "bio",
       "city",
-      "from",
-      "relationship",
+      "occupation",
+      "hobbies",
     ];
 
     for (const field of updateFields) {

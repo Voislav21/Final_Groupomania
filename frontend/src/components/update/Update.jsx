@@ -16,8 +16,8 @@ const Update = ({ setOpenUpdate, user }) => {
     lastName: "",
     bio: "",
     city: "",
-    from: "",
-    relationship: "",
+    occupation: "",
+    hobbies: "",
   });
 
   const upload = async (file) => {
@@ -38,14 +38,15 @@ const Update = ({ setOpenUpdate, user }) => {
   },
     {
       onSuccess: (data) => {
+        console.log(data)
         updateUserProfile(data.data);
         setTexts({
           firstName: data.firstName,
           lastName: data.lastName,
           bio: data.bio,
           city: data.city,
-          from: data.from,
-          relationship: data.relationship,
+          occupation: data.occupation,
+          hobbies: data.hobbies,
         });
         queryClient.invalidateQueries(["user"]);
       },
@@ -116,10 +117,10 @@ const Update = ({ setOpenUpdate, user }) => {
           <input type="text" name="bio" placeholder={currentUser.bio} value={texts.bio} onChange={handleChange} />
           <label>City</label>
           <input type="text" name="city" placeholder={currentUser.city} value={texts.city} onChange={handleChange} />
-          <label>From</label>
-          <input type="text" name="from" placeholder={currentUser.from} value={texts.from} onChange={handleChange} />
-          <label>Relationship Status</label>
-          <input type="text" name="relationship" placeholder={currentUser.relationship} value={texts.relationship} onChange={handleChange} />
+          <label>Occupation</label>
+          <input type="text" name="occupation" placeholder={currentUser.occupation} value={texts.occupation} onChange={handleChange} />
+          <label>Hobbies</label>
+          <input type="text" name="hobbies" placeholder={currentUser.hobbies} value={texts.hobbies} onChange={handleChange} />
           <button onClick={handleSubmit}>Update</button>
         </form>
       </div>

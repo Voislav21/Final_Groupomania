@@ -80,7 +80,7 @@ const Post = ({ post }) => {
               <span className="date">{moment(post.createdAt).fromNow()}</span>
             </div>
           </div>
-          <MoreHorizOutlined onClick={() => setMenuOpen(!menuOpen)} />
+          <MoreHorizOutlined onClick={() => setMenuOpen(!menuOpen)} style={{ cursor: "pointer" }} />
           {menuOpen && post.userId === currentUser.id && (
             <button onClick={handleDelete}>Delete</button>
           )}

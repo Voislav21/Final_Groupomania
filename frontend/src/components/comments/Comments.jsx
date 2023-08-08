@@ -5,10 +5,12 @@ import profileDefault from "../../assets/profile-default.jpeg";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { makeRequest } from "../../axios.js";
 import moment from "moment";
+import { MoreHorizOutlined } from "@mui/icons-material";
 
 const Comments = ({ postId }) => {
 
   const [desc, setDesc] = useState("");
+  const [menuOpen, setMenuOpen] = useState(false);
   const commentsQueryKey = ["comments", postId];
 
   const { currentUser } = useContext(AuthContext);
@@ -30,6 +32,21 @@ const Comments = ({ postId }) => {
       },
     }
   );
+
+  const deleteMutation = useMutation(
+    (commentId) => {
+      return makeRequest.delete("/comments/" + commentId);
+    },
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries(commentsQueryKey);
+      },
+    }
+  );
+
+  const handleDelete = (commentId) => {
+    deleteMutation.mutate(commentId);
+  };
 
   const handleClick = async (event) => {
     event.preventDefault();
@@ -54,6 +71,10 @@ const Comments = ({ postId }) => {
             <p>{comment.desc}</p>
           </div>
           <span className="date">{moment(comment.createdAt).fromNow()}</span>
+          <MoreHorizOutlined onClick={() => setMenuOpen(!menuOpen)} style={{ cursor: "pointer" }} />
+          {menuOpen && comment.userId === currentUser.id && (
+            <button onClick={() => handleDelete(comment.id)}>Delete</button>
+          )}
         </div>
       ))}
     </div>

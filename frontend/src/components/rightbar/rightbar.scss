@@ -63,16 +63,6 @@
               object-fit: cover;
             }
 
-            .online {
-              width: 12px;
-              height: 12px;
-              border-radius: 50%;
-              background-color: limegreen;
-              position: absolute;
-              top: 0;
-              left: 30px;
-            }
-
             span {
               font-weight: 500;
               color: themed("textColor");

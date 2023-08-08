@@ -66,12 +66,12 @@ const Rightbar = ({ profile }) => {
             <span className="value">{data?.city}</span>
           </div>
           <div className="items">
-            <span className="key">From:</span>
-            <span className="value">{data?.from}</span>
+            <span className="key">Occupation:</span>
+            <span className="value">{data?.occupation}</span>
           </div>
           <div className="items">
-            <span className="key">Relationship:</span>
-            <span className="value">{data?.relationship}</span>
+            <span className="key">Hobbies:</span>
+            <span className="value">{data?.hobbies}</span>
           </div>
         </div>
       </div>
