@@ -122,11 +122,14 @@ const Update = ({ setOpenUpdate, user }) => {
           <label>Hobbies</label>
           <input type="text" name="hobbies" placeholder={currentUser.hobbies} value={texts.hobbies} onChange={handleChange} />
           <button onClick={handleSubmit}>Update</button>
+          <button className="delete" onClick={() => setOpenUpdate(false)}>
+            Deactivate Account
+          </button>
         </form>
+        <button className="close" onClick={() => setOpenUpdate(false)}>
+          Close
+        </button>
       </div>
-      <button className="close" onClick={() => setOpenUpdate(false)}>
-        close
-      </button>
     </div>
   );
 };
