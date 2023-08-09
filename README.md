@@ -12,15 +12,16 @@ MySQL (v8.x or later)
 ## Getting Started
 
 1. Clone the Repository: Clone the repository from GitHub to your local machine using the following command:
-2. Install Dependencies: Navigate to the project directory and install the project dependencies for both the frontend and backend:
-3. Database Setup:  
+  ```git clone https://github.com/your-username/project-name.git```
+3. Install Dependencies: Navigate to the project directory and install the project dependencies for both the frontend and backend:
+4. Database Setup:  
  .Create a MySQL database for your project.  
  .Import the SQL dump file located in the project's root directory:  
-4. Configuration:  
+5. Configuration:  
  .Create a .env file in the root of the backend directory.  
  .Provide the necessary environment variables in the .env file, including database credentials and other configurations. For example:
-5. Run the backend:
-6. Run the frontend:
+6. Run the backend:
+7. Run the frontend:
 
 ## Accessing the Application
 Open your web browser and navigate to http://localhost:3000 to access the running React app.
