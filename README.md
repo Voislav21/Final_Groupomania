@@ -5,19 +5,19 @@ This documentation provides instructions on how to set up and run the "Project N
 ## Prerequisites
 Before you begin, ensure you have the following installed on your machine:
 
-Node.js (v14.x or later)
-npm (Node Package Manager)
-MySQL (v8.x or later)
+Node.js (v14.x or later)  
+npm (Node Package Manager)  
+MySQL (v8.x or later)  
 
 ## Getting Started
 
 1. Clone the Repository: Clone the repository from GitHub to your local machine using the following command:
 2. Install Dependencies: Navigate to the project directory and install the project dependencies for both the frontend and backend:
-3. Database Setup:
- .Create a MySQL database for your project.
- .Import the SQL dump file located in the project's root directory:
-4. Configuration:
- .Create a .env file in the root of the backend directory.
+3. Database Setup:  
+ .Create a MySQL database for your project.  
+ .Import the SQL dump file located in the project's root directory:  
+4. Configuration:  
+ .Create a .env file in the root of the backend directory.  
  .Provide the necessary environment variables in the .env file, including database credentials and other configurations. For example:
 5. Run the backend:
 6. Run the frontend:
