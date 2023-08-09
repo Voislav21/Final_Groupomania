@@ -11,8 +11,8 @@ MySQL (v8.x or later)
 
 ## Getting Started
 
-1. Clone the Repository: Clone the repository from GitHub to your local machine using the following command:
-  ```git clone https://github.com/your-username/project-name.git```
+1. Clone the Repository: Clone the repository from GitHub to your local machine using the following command:  
+  ``` terminal git clone https://github.com/your-username/project-name.git```
 3. Install Dependencies: Navigate to the project directory and install the project dependencies for both the frontend and backend:
 4. Database Setup:  
  .Create a MySQL database for your project.  
