@@ -12,14 +12,15 @@ MySQL (v8.x or later)
 ## Getting Started
 
 1. Clone the Repository: Clone the repository from GitHub to your local machine using the following command:  
-  ```git clone https://github.com/your-username/project-name.git```
+  ```git clone https://github.com/Voislav21/Final_Groupomania.git```
 3. Install Dependencies: Navigate to the project directory and install the project dependencies for both the frontend and backend:  
-   ```cd Groupomania```  
+   ```cd Final_Groupomania```  
    ```npm install```
 5. Database Setup:  
  .Create a MySQL database for your project.  
  .Import the SQL dump file located in the project's root directory:  
   ```mysql -u your-username -p your-database-name < project-dump.sql```
+Alternitavley you can just copy and paste the dumpfile into your IDE (workbench) and run the query. This will populate and create all the schemas.
 7. Configuration:  
  .Create a .env file in the root of the backend directory.  
  .Provide the necessary environment variables in the .env file, including database credentials and other configurations. For example:
