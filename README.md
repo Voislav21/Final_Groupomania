@@ -19,7 +19,7 @@ MySQL (v8.x or later)
 5. Database Setup:  
  .Create a MySQL database for your project.  
  .Import the SQL dump file located in the project's root directory:  
-  ```mysql -u your-username -p your-database-name < project-dump.sql```
+  ```mysql -u your-username -p your-database-name < project-dump.sql```  
 Alternitavley you can just copy and paste the dumpfile into your IDE (workbench) and run the query. This will populate and create all the schemas.
 7. Configuration:  
  .Create a .env file in the root of the backend directory.  
