@@ -6,6 +6,7 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { makeRequest } from "../../axios.js";
 import moment from "moment";
 import { MoreHorizOutlined } from "@mui/icons-material";
+import { Link } from "react-router-dom";
 
 const Comments = ({ postId }) => {
 
@@ -65,7 +66,9 @@ const Comments = ({ postId }) => {
       </div>
       {isLoading ? "Fecthing data" : data.map(comment => (
         <div className="comment" key={comment.id}>
-          <img src={comment.profilePic ? imgUrl + comment.profilePic : profileDefault} alt="" />
+          <Link to={`/profile/${comment.userId}`} style={{ textDecoration: "none", color: "inherit" }}>
+            <img src={comment.profilePic ? imgUrl + comment.profilePic : profileDefault} alt="" />
+          </Link>
           <div className="info">
             <span>{comment.firstName} {comment.lastName}</span>
             <p>{comment.desc}</p>
@@ -76,8 +79,9 @@ const Comments = ({ postId }) => {
             <button onClick={() => handleDelete(comment.id)}>Delete</button>
           )}
         </div>
-      ))}
-    </div>
+      ))
+      }
+    </div >
   );
 };
 
