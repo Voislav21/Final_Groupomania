@@ -78,7 +78,9 @@ const Navbar = () => {
         <Link to="/" style={{ textDecoration: "none", cursor: "pointer" }}>
           <span>Groupomania</span>
         </Link>
-        <HomeOutlined />
+        <Link to={`/profile/${currentUser.id}`} style={{ textDecoration: "none", color: "inherit", marginTop: "5px" }}>
+          <HomeOutlined />
+        </Link>
         {darkMode ? <WbSunnyOutlined onClick={toggle} style={{ cursor: "pointer" }} /> : <DarkModeOutlined onClick={toggle} style={{ cursor: "pointer" }} />}
         <div className="search" ref={ref}>
           <div className="search-wrapper">

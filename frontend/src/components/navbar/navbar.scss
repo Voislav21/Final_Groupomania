@@ -14,6 +14,10 @@
     color: themed("textColor");
     z-index: 999;
 
+    @include mobile {
+      justify-content: space-around;
+    }
+
     .left {
       display: flex;
       align-items: center;
@@ -31,6 +35,10 @@
         padding: 5px;
         position: relative;
 
+        @include mobile {
+          display: none;
+        }
+
         .search-wrapper {
           display: flex;
           align-items: center;
@@ -41,10 +49,6 @@
           width: 500px;
           background-color: transparent;
           color: themed("textColor");
-
-          @include mobile {
-            display: none;
-          }
 
           @include tablet {
             width: 200px;
