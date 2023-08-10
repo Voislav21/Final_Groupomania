@@ -6,11 +6,13 @@ import { makeRequest } from "../../axios";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { CloudUpload } from "@mui/icons-material";
 import { AuthContext } from "../../context/authContext";
+import { useNavigate } from "react-router-dom";
 
 const Update = ({ setOpenUpdate, user }) => {
-  const { currentUser, updateUserProfile } = useContext(AuthContext);
+  const { currentUser, updateUserProfile, logout } = useContext(AuthContext);
   const [cover, setCover] = useState(null);
   const [profile, setProfile] = useState(null);
+  const navigate = useNavigate();
   const [texts, setTexts] = useState({
     firstName: "",
     lastName: "",
@@ -70,6 +72,24 @@ const Update = ({ setOpenUpdate, user }) => {
     setTexts((prev) => ({ ...prev, [event.target.name]: [event.target.value] }));
   };
 
+  const handleDelete = async (event) => {
+    event.preventDefault();
+    if (window.confirm("Are you sure you want to deactivate your account?")) {
+      try {
+        const response = await makeRequest.delete(`/users/${currentUser.id}`);
+        console.log(response);
+        if (response.status === 200) {
+          logout();
+          navigate("/");
+        } else {
+          console.error("Account deactivation failed.");
+        }
+      } catch (error) {
+        console.error("Error deactivating account:", error);
+      }
+    }
+  };
+
   const imgUrl = "http://localhost:8080/api/uploads/";
 
   return (
@@ -122,7 +142,7 @@ const Update = ({ setOpenUpdate, user }) => {
           <label>Hobbies</label>
           <input type="text" name="hobbies" placeholder={currentUser.hobbies} value={texts.hobbies} onChange={handleChange} />
           <button onClick={handleSubmit}>Update</button>
-          <button className="delete" onClick={() => setOpenUpdate(false)}>
+          <button className="delete" onClick={handleDelete}>
             Deactivate Account
           </button>
         </form>

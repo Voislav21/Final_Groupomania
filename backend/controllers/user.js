@@ -121,3 +121,72 @@ export const updateUser = (req, res) => {
   });
 };
 
+export const deleteUser = (req, res) => {
+  const userId = req.params.userId;
+
+  db.query("SELECT id, img FROM posts WHERE userId = ?", [userId], (error, posts) => {
+    if (error) {
+      return res.status(500).json({ error: "Failed to delete user" });
+    }
+
+    posts.forEach((post) => {
+      const { img } = post;
+
+      if (img) {
+        fs.unlink(`uploads/${img}`, (err) => {
+          if (err) {
+            console.error(`Error deleting post image (${img}):`, err);
+          } else {
+            console.log(`Post image (${img}) deleted successfully.`);
+          }
+        });
+      }
+    });
+
+    // Get the user's profilePic and coverPic from the database
+    db.query("SELECT profilePic, coverPic FROM users WHERE id = ?", [userId], (error, result) => {
+      if (error) {
+        return res.status(500).json({ error: "Failed to delete user" });
+      }
+
+      const { profilePic, coverPic } = result[0];
+
+      const q = "DELETE FROM users WHERE id = ?";
+
+      db.query(q, [userId], (error, result) => {
+        if (error) {
+          return res.status(500).json({ error: "Failed to delete user" });
+        }
+
+        if (result.affectedRows === 0) {
+          return res.status(404).json({ error: "User not found" });
+        }
+
+        // Unlink profilePic and coverPic images
+        if (profilePic) {
+          fs.unlink(`uploads/${profilePic}`, (err) => {
+            if (err) {
+              console.error('Error deleting profile picture:', err);
+            } else {
+              console.log('Profile picture deleted successfully.');
+            }
+          });
+        }
+
+        if (coverPic) {
+          fs.unlink(`uploads/${coverPic}`, (err) => {
+            if (err) {
+              console.error('Error deleting cover picture:', err);
+            } else {
+              console.log('Cover picture deleted successfully.');
+            }
+          });
+        }
+
+        return res.status(200).json({ message: "User deleted successfully" });
+      });
+    });
+  });
+}
+
+
