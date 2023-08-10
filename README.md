@@ -12,7 +12,7 @@ MySQL (v8.x or later)
 ## Getting Started
 
 1. Clone the Repository: Clone the repository from GitHub to your local machine using the following command:  
-  ```git clone https://github.com/Voislav21/Final_Groupomania.git```
+  ```git clone https://github.com/Voislav21/Final_Groupomania.git```   
 3. Install Dependencies: Navigate to the project directory and install the project dependencies for both the frontend and backend:  
    ```cd Final_Groupomania```   
    ```cd frontend```   
@@ -23,11 +23,11 @@ MySQL (v8.x or later)
  .Create a MySQL database for your project.  
  .Import the SQL dump file located in the project's root directory:  
   ```mysql -u your-username -p your-database-name < project-dump.sql```  
-Alternitavley you can just copy and paste the dumpfile into your IDE (workbench) and run the query. This will populate and create all the schemas.
-7. Configuration:
+Alternitavley you can just copy and paste the dumpfile into your IDE (workbench) and run the query. This will populate and create all the schemas.   
+7. Configuration:   
  .Create an uploads folder in the root of the backend directory.   
  .Create a .env file in the root of the backend directory.  
- .Provide the necessary environment variables in the .env file, including database credentials and other configurations. For example:
+ .Provide the necessary environment variables in the .env file, including database credentials and other configurations. For example:   
 ```DB_HOST=localhost```   
 ```DB_USER=your-username```   
 ```DB_PASSWORD=your-password```   
@@ -39,7 +39,7 @@ Alternitavley you can just copy and paste the dumpfile into your IDE (workbench)
 ```ce frontend```   
 ```npm run dev```  
 ## Accessing the Application
-Open your web browser and navigate to http://localhost:3000 to access the running React app.
+Open your web browser and navigate to http://localhost:3000 to access the running React app.   
 
 ## Notes
 This documentation provides a basic setup guide. Depending on your environment and requirements, you may need to modify some steps.
