@@ -33,10 +33,10 @@ Alternitavley you can just copy and paste the dumpfile into your IDE (workbench)
 ```DB_PASSWORD=your-password```   
 ```DB_DATABASE=your-database-name```  
 8. Run the backend:   
-```ca backend```   
+```cd backend```   
 ```npm start```  
 10. Run the frontend:   
-```ce frontend```   
+```cd frontend```   
 ```npm run dev```  
 ## Accessing the Application
 Open your web browser and navigate to http://localhost:3000 to access the running React app.   
@@ -44,4 +44,7 @@ Open your web browser and navigate to http://localhost:3000 to access the runnin
 ## Notes
 This documentation provides a basic setup guide. Depending on your environment and requirements, you may need to modify some steps.
 Remember to secure your environment variables and sensitive information.
-Feel free to explore and customize the application to your needs!
+Feel free to explore and customize the application to your needs!   
+
+## Github repository   
+[github repo] (https://github.com/Voislav21/Final_Groupomania.git)
