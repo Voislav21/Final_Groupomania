@@ -72,11 +72,11 @@ const Post = ({ post }) => {
       <div className="container">
         <div className="user">
           <div className="userInfo">
-            <img src={post.profilePic ? imgUrl + post.profilePic : profileDefault} alt="" />
+            <Link to={`/profile/${post.userId}`} style={{ textDecoration: "none", color: "inherit" }} >
+              <img src={post.profilePic ? imgUrl + post.profilePic : profileDefault} alt="" />
+            </Link>
             <div className="details">
-              <Link to={`/profile/${post.userId}`} style={{ textDecoration: "none", color: "inherit" }} >
-                <span className="name">{post.firstName} {post.lastName}</span>
-              </Link>
+              <span className="name">{post.firstName} {post.lastName}</span>
               <span className="date">{moment(post.createdAt).fromNow()}</span>
             </div>
           </div>
