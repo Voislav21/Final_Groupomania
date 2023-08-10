@@ -8,7 +8,7 @@ const SearchResults = ({ results, onResultClick }) => {
 
   return (
     <div className="search-results-box">
-      {results.length > 0 ? (
+      {results?.length > 0 ? (
         <>
           {results.map((user) => (
             <div key={user.id} className="search-result-item">

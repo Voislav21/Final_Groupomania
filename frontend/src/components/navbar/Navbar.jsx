@@ -2,11 +2,31 @@ import "./navbar.scss";
 import profileDefault from "../../assets/profile-default.jpeg";
 import { WbSunnyOutlined, HomeOutlined, DarkModeOutlined, EmailOutlined, NotificationsNoneOutlined, SearchOutlined, LogoutOutlined } from "@mui/icons-material";
 import { Link, useNavigate } from "react-router-dom";
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect, useRef } from "react";
 import { DarkModeContext } from "../../context/darkModeContext";
 import { AuthContext } from "../../context/authContext";
 import axios from "axios";
 import SearchResults from "../searchResults/SearchResults.jsx";
+
+const useOutsideClick = (callback) => {
+  const ref = useRef();
+
+  useEffect(() => {
+    const handleClick = (event) => {
+      if (ref.current && !ref.current.contains(event.target)) {
+        callback();
+      }
+    };
+
+    document.addEventListener('click', handleClick);
+
+    return () => {
+      document.removeEventListener('click', handleClick);
+    };
+  }, [ref]);
+
+  return ref;
+};
 
 const Navbar = () => {
 
@@ -18,6 +38,11 @@ const Navbar = () => {
 
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
+  const handleClickOutside = () => {
+    setSearchQuery("");
+  };
+
+  const ref = useOutsideClick(handleClickOutside);
 
   const handleLogout = async () => {
     try {
@@ -47,8 +72,6 @@ const Navbar = () => {
     setSearchQuery("");
   };
 
-
-
   return (
     <div className="navbar">
       <div className="left">
@@ -57,7 +80,7 @@ const Navbar = () => {
         </Link>
         <HomeOutlined />
         {darkMode ? <WbSunnyOutlined onClick={toggle} style={{ cursor: "pointer" }} /> : <DarkModeOutlined onClick={toggle} style={{ cursor: "pointer" }} />}
-        <div className="search">
+        <div className="search" ref={ref}>
           <div className="search-wrapper">
             <SearchOutlined />
             <input type="text" placeholder="Take a look around..." value={searchQuery} onChange={handleSearch} />
