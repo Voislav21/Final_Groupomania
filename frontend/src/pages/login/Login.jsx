@@ -41,8 +41,8 @@ const Login = () => {
 				<div className="left">
 					<h1>Hello Groupomania</h1>
 					<p>
-						If this is your first time visiting, you'll will be in awe at the possibilities of
-						connection thats just like full connect to like everyone who do and dont know!!
+						Welcome back to the most talked about social media sharing platform between your colleagues. Discover more in-depth the company you work for and the people you work
+						with. Be the change you want to see in the world!
 					</p>
 					<span>First time visiting?</span>
 					<Link to="/register">

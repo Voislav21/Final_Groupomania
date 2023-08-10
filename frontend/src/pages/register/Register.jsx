@@ -42,8 +42,8 @@ const Register = () => {
         <div className="left">
           <h1>Lets Begin</h1>
           <p>
-            If this is your first time visiting, you will be in awe at the possibilities of
-            connection thats just like full connect bro to like everyone who you do and dont know!!
+            If this is your first time visiting, you will be in awe at the possibilities that await you
+            inside. So what are you waiting for? Join the new social media sharing platform designed just for you!
           </p>
           <span>Been here before?</span>
           <Link to="/login">
