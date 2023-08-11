@@ -14,26 +14,32 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { AuthContext } from "../../context/authContext";
 
 const Post = ({ post }) => {
-
+  // State to manage comment section visibility
   const [commentOpen, setCommentOpen] = useState(false);
+  // State to manage post's menu visibility
   const [menuOpen, setMenuOpen] = useState(false);
 
+  // Accessing user information from AuthContext
   const { currentUser } = useContext(AuthContext);
 
+  // Query to get likes information for the post
   const { isLoading, error, data } = useQuery(["likes", post.id], () =>
     makeRequest.get("/likes?postId=" + post.id).then((res) => {
       return res.data;
     })
   );
 
+  // Query to get comments information for the post
   const { isLoading: isLoadingComments, data: comments } = useQuery(["comments", post.id], () =>
     makeRequest.get("/comments?postId=" + post.id).then((res) => {
       return res.data;
     })
   );
 
+  // Query client instance to manage cache
   const queryClient = useQueryClient();
 
+  // Mutation to handle liking/unliking a post
   const mutation = useMutation(
     (liked) => {
       if (liked) return makeRequest.delete("/likes?postId=" + post.id);
@@ -46,6 +52,7 @@ const Post = ({ post }) => {
     }
   );
 
+  // Mutation to handle deleting a post
   const deleteMutation = useMutation(
     (postId) => {
       return makeRequest.delete("/posts/" + postId);
@@ -57,14 +64,17 @@ const Post = ({ post }) => {
     }
   );
 
+  // Function to handle liking/unliking a post
   const handleLike = () => {
     mutation.mutate(data.includes(currentUser.id));
   };
 
+  // Function to handle deleting a post
   const handleDelete = () => {
     deleteMutation.mutate(post.id);
   };
 
+  // Base URL for image
   const imgUrl = "http://localhost:8080/api/uploads/";
 
   return (

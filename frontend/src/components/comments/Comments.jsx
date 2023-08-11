@@ -10,12 +10,15 @@ import { Link } from "react-router-dom";
 
 const Comments = ({ postId }) => {
 
+  // State for comment input and menu
   const [desc, setDesc] = useState("");
   const [menuOpen, setMenuOpen] = useState(false);
   const commentsQueryKey = ["comments", postId];
 
+  // Create user info from AuthContext
   const { currentUser } = useContext(AuthContext);
 
+  // Fetch comments for the current post
   const { isLoading, error, data } = useQuery(commentsQueryKey, () =>
     makeRequest.get("/comments?postId=" + postId).then((res) => {
       return res.data;
@@ -24,6 +27,7 @@ const Comments = ({ postId }) => {
 
   const queryClient = useQueryClient();
 
+  // Mutation for adding a new comment
   const mutation = useMutation((newComment) => {
     return makeRequest.post("/comments", newComment);
   },
@@ -34,6 +38,7 @@ const Comments = ({ postId }) => {
     }
   );
 
+  // Mutation for deleting a comment
   const deleteMutation = useMutation(
     (commentId) => {
       return makeRequest.delete("/comments/" + commentId);
@@ -45,16 +50,19 @@ const Comments = ({ postId }) => {
     }
   );
 
+  // Function to handle comment deletion
   const handleDelete = (commentId) => {
     deleteMutation.mutate(commentId);
   };
 
+  // Function to handle comment submission
   const handleClick = async (event) => {
     event.preventDefault();
     mutation.mutate({ desc, postId });
     setDesc("");
   };
 
+  // Base URL for image
   const imgUrl = "http://localhost:8080/api/uploads/";
 
   return (

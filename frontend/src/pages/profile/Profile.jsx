@@ -13,16 +13,22 @@ import { makeRequest } from "../../axios";
 import { useLocation } from "react-router-dom";
 
 const Profile = () => {
+	// State to manage the visibility of the update form
 	const [openUpdate, setOpenUpdate] = useState(false);
+	// Accessing the current user information from AuthContext
 	const { currentUser } = useContext(AuthContext);
 
+	// Extracting the user ID from the URL
 	const userId = parseInt(useLocation().pathname.split("/")[2]);
 
+	// Fetching user information using a query
 	const { isLoading, error, data } = useQuery(["user", userId], () =>
 		makeRequest.get("/users/find/" + userId).then((res) => {
 			return res.data;
 		})
 	);
+
+	// Fetching friendship data using a query
 
 	const { isLoading: fsIsloading, data: friendshipData } = useQuery(["friendship", userId], () =>
 		makeRequest.get("/friendships?friendId=" + userId).then((res) => {
@@ -32,6 +38,7 @@ const Profile = () => {
 
 	const queryClient = useQueryClient();
 
+	// Mutation to add or remove friends
 	const mutation = useMutation(
 		(friends) => {
 			if (friends) return makeRequest.delete("/friendships?userId=" + userId);
@@ -44,10 +51,12 @@ const Profile = () => {
 		}
 	);
 
+	// Function to handle friend request
 	const handleRequest = () => {
 		mutation.mutate(friendshipData.includes(currentUser.id));
 	};
 
+	// Base URL for image
 	const imgUrl = "http://localhost:8080/api/uploads/";
 
 

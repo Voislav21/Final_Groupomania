@@ -2,8 +2,11 @@ import { db } from "../connect.js";
 import jwt from "jsonwebtoken";
 import moment from "moment";
 
+// Function to get comments
 export const getComments = (req, res) => {
   const postId = req.query.postId;
+
+  // Retrive comments along with user information
   const q = `
     SELECT comment.*, user.id AS userId, firstName, lastName, profilePic 
     FROM comments AS comment JOIN users as user ON (user.id = comment.userId)
@@ -16,11 +19,12 @@ export const getComments = (req, res) => {
   });
 };
 
-
+// Function to add new comment
 export const addComment = (req, res) => {
   const token = req.cookies.accessToken;
   if (!token) return res.status(401).json("Not logged in!");
 
+  // Verify the token to get user information
   jwt.verify(token, "secretkey", (error, userInfo) => {
     if (error) return res.status(403).json("Token is not valid!");
 
@@ -33,6 +37,7 @@ export const addComment = (req, res) => {
       req.body.postId
     ]
 
+    // Insert the comment into database
     db.query(q, [values], (error, data) => {
       if (error) return res.status(500).json(error);
       return res.status(200).json("Comment has been created");
@@ -40,9 +45,11 @@ export const addComment = (req, res) => {
   });
 };
 
+// Function to delete comment
 export const deleteComment = (req, res) => {
   const commentId = req.params.id;
 
+  // Delete specified comment
   const q = `DELETE FROM comments WHERE id = ?`;
   db.query(q, [commentId], (error, result) => {
     if (error) return res.status(500).json(error);

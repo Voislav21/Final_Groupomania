@@ -4,8 +4,8 @@ import { useState } from "react";
 import axios from "axios";
 import * as Yup from "yup";
 import { useFormik } from "formik";
-import LoginForm from "../login/Login.jsx"
 
+// Define the validation schema using Yup
 const validationSchema = Yup.object().shape({
   firstName: Yup.string().required('First name is required'),
   lastName: Yup.string().required('Last name is required'),
@@ -16,7 +16,10 @@ const validationSchema = Yup.object().shape({
 const Register = () => {
 
   const navigate = useNavigate();
+  // State to track whether the form has been submitted
   const [formSubmit, setFormSubmit] = useState(false);
+
+  // Formik setup
   const formik = useFormik({
     initialValues: {
       firstName: '',
@@ -24,14 +27,17 @@ const Register = () => {
       email: '',
       password: '',
     },
-    validationSchema,
+    validationSchema, // Apply the defined validation schema
     onSubmit: async (values, { setErrors }) => {
       try {
+        // Send a POST request to register a new user
         await axios.post("http://localhost:8080/api/auth/register", values);
+
+        // Update formSubmit state and navigate to login page
         setFormSubmit(true);
         navigate("/login", { state: { successMessage: "Registration successful, please login!" } });
       } catch (error) {
-        setErrors({ email: error.response.data });
+        setErrors({ email: error.response.data }); // Display error message if registration fails
       }
     }
   });

@@ -9,7 +9,6 @@ const NewsWindow = () => {
   const [newsData, setNewsData] = useState([]);
 
   useEffect(() => {
-    const API_KEY = "dae31aaacc5c4f4687a4c0539819619a";
     const API_URL = "https://newsapi.org/v2/top-headlines?sources=techcrunch&apiKey=dae31aaacc5c4f4687a4c0539819619a";
 
     axios.get(API_URL)

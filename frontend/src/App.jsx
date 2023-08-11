@@ -19,14 +19,14 @@ import { AuthContext } from "./context/authContext";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 function App() {
-
+  // Access the user's authentication context
   const { currentUser } = useContext(AuthContext);
-
+  // Access the dark mode context
   const { darkMode } = useContext(DarkModeContext);
-
+  // Create a new instance of QueryClient
   const queryClient = new QueryClient();
 
-
+  // Layout component that provides the overall structure
   const Layout = () => {
     const location = useLocation();
     const isProfilePage = location.pathname.startsWith("/profile");
@@ -47,27 +47,35 @@ function App() {
     );
   };
 
+  // ProtectedRoute component to control access to routes
   const ProtectedRoute = ({ children }) => {
     if (!currentUser) {
+      // Redirect to login if the user is not authenticated
       return <Navigate to="/login" />
     }
+    // Render the protected content if the user is authenticated
     return children
   };
 
+  // Create the router configuration
   const router = createBrowserRouter([
     {
       path: "/",
-      element:
+      element: (
+        // Apply the ProtectedRoute wrapper
         <ProtectedRoute>
           <Layout />
-        </ProtectedRoute>,
+        </ProtectedRoute>
+      ),
       children: [
         {
           path: "/",
+          // Include the Home component
           element: <Home />,
         },
         {
           path: "/profile/:id",
+          // Include the Profile component for user profiles
           element: <Profile />
         }
 
@@ -76,10 +84,12 @@ function App() {
     },
     {
       path: "/login",
+      // Include the Login component
       element: <Login />
     },
     {
       path: "/register",
+      // Include the Register component
       element: <Register />
     },
   ]);

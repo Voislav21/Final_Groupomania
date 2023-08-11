@@ -3,6 +3,7 @@ import jwt from "jsonwebtoken";
 import moment from "moment";
 import fs from "fs";
 
+// Function to get posts based on user ID (or all posts if user ID is undefined)
 export const getPosts = (req, res) => {
 
   const userId = req.query.userId;
@@ -14,19 +15,15 @@ export const getPosts = (req, res) => {
 
     const q = userId !== "undefined"
       ? `SELECT DISTINCT post.*, user.id AS userId, firstName, lastName, profilePic 
-    FROM posts AS post 
-    JOIN users as user ON (user.id = post.userId)
-    WHERE post.userId = ?
-    ORDER BY post.createdAt DESC`
+         FROM posts AS post 
+         JOIN users as user ON (user.id = post.userId)
+         WHERE post.userId = ?
+         ORDER BY post.createdAt DESC`
       :
       `SELECT DISTINCT post.*, user.id AS userId, firstName, lastName, profilePic 
-    FROM posts AS post 
-    JOIN users as user ON (user.id = post.userId)
-    
-    ORDER BY post.createdAt DESC`;
-
-    /*LEFT JOIN friendships AS friends ON (post.userId = friends.friendId) 
-    WHERE (friends.userId = ? AND friends.status = 'accepted') OR post.userId = ?*/
+         FROM posts AS post 
+         JOIN users as user ON (user.id = post.userId)
+         ORDER BY post.createdAt DESC`;
 
     const values = userId !== "undefined" ? [userId] : [userInfo.id, userInfo.id];
 
@@ -37,6 +34,7 @@ export const getPosts = (req, res) => {
   });
 };
 
+// Function to add a new post
 export const addPost = (req, res) => {
   const token = req.cookies.accessToken;
   if (!token) return res.status(401).json("Not logged in!");
@@ -53,6 +51,7 @@ export const addPost = (req, res) => {
       userInfo.id
     ]
 
+    // Insert the new post into the database
     db.query(q, [values], (error, data) => {
       if (error) return res.status(500).json(error);
       return res.status(200).json("Post has been created");
@@ -60,6 +59,7 @@ export const addPost = (req, res) => {
   });
 };
 
+// Function to delete a post
 export const deletePost = (req, res) => {
   const token = req.cookies.accessToken;
   if (!token) return res.status(401).json("Not logged in!");
@@ -67,6 +67,7 @@ export const deletePost = (req, res) => {
   jwt.verify(token, "secretkey", (error, userInfo) => {
     if (error) return res.status(403).json("Token is not valid!");
 
+    // Query to get the post's image filename for deletion
     const unlinkQuery = "SELECT img FROM posts WHERE `id` = ? AND `userId` = ?";
     db.query(unlinkQuery, [req.params.id, userInfo.id], (error, result) => {
       if (error) return res.status(500).json(error);
@@ -75,6 +76,7 @@ export const deletePost = (req, res) => {
       const imgFilename = result[0].img;
 
       if (imgFilename) {
+        // Delete the post image from the uploads folder
         fs.unlink(`uploads/${imgFilename}`, (error) => {
           if (error) {
             console.error("Error deleting post image:", error);
@@ -85,6 +87,7 @@ export const deletePost = (req, res) => {
       }
     });
 
+    // Delete the post from the database
     const q = "DELETE FROM posts WHERE `id` = ? AND `userID` = ?";
 
     db.query(q, [req.params.id, userInfo.id], (error, data) => {

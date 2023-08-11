@@ -8,6 +8,7 @@ import { AuthContext } from "../../context/authContext";
 import axios from "axios";
 import SearchResults from "../searchResults/SearchResults.jsx";
 
+// Custom hook to handle clicks outside a specified element
 const useOutsideClick = (callback) => {
   const ref = useRef();
 
@@ -38,12 +39,15 @@ const Navbar = () => {
 
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
+
+  // Function to handle clicks outside the search wrapper
   const handleClickOutside = () => {
     setSearchQuery("");
   };
 
   const ref = useOutsideClick(handleClickOutside);
 
+  // Function to handle user logout
   const handleLogout = async () => {
     try {
       const response = await axios.post("http://localhost:8080/api/auth/logout", {
@@ -56,6 +60,7 @@ const Navbar = () => {
     }
   };
 
+  // Function to handle search input change
   const handleSearch = async (event) => {
     const query = event.target.value;
     setSearchQuery(query);
@@ -67,6 +72,7 @@ const Navbar = () => {
     }
   };
 
+  // Function to handle clicking on a search result
   const handleResultClick = () => {
     // Hide the search results when clicking on a search result link
     setSearchQuery("");

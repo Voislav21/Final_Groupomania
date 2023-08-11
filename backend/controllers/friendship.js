@@ -1,6 +1,7 @@
 import { db } from "../connect.js";
 import jwt from "jsonwebtoken";
 
+// Function to get the list of user IDs that the provided friend ID is friends with
 export const getFriendships = (req, res) => {
   const q = `SELECT userId FROM friendships WHERE friendId = ?`;
 
@@ -10,6 +11,7 @@ export const getFriendships = (req, res) => {
   });
 };
 
+// Function to get the list of friends for the provided user ID
 export const getFriends = (req, res) => {
   const q = `
   SELECT f.friendId, u.firstName, u.lastName, u.profilePic 
@@ -23,7 +25,7 @@ export const getFriends = (req, res) => {
   });
 };
 
-
+// Function to add a new friendship
 export const addFriendship = (req, res) => {
   const token = req.cookies.accessToken;
   if (!token) return res.status(401).json("Not logged in!");
@@ -38,6 +40,7 @@ export const addFriendship = (req, res) => {
       req.body.userId
     ];
 
+    // Insert the new friendship into the database
     db.query(q, [values], (error, data) => {
       if (error) return res.status(500).json(error);
       return res.status(200).json("Friendship added");
@@ -45,6 +48,7 @@ export const addFriendship = (req, res) => {
   });
 };
 
+// Function to delete a friendship
 export const deleteFriendship = (req, res) => {
   const token = req.cookies.accessToken;
   if (!token) return res.status(401).json("Not logged in!");
@@ -54,6 +58,7 @@ export const deleteFriendship = (req, res) => {
 
     const q = "DELETE FROM friendships WHERE `userId` = ? AND `friendId` = ?";
 
+    // Delete the specified friendship from the database
     db.query(q, [userInfo.id, req.query.userId], (error, data) => {
       if (error) return res.status(500).json(error);
       return res.status(200).json("Unfriended");

@@ -7,9 +7,12 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { makeRequest } from "../../axios";
 
 const Share = () => {
+  // State to manage the selected file for uploading
   const [file, setFile] = useState(null);
+  // State to manage the user's input for the post description
   const [desc, setDesc] = useState("");
 
+  // Function to upload the selected file
   const upload = async () => {
     try {
       const formData = new FormData();
@@ -21,10 +24,13 @@ const Share = () => {
     }
   };
 
+  // Accessing current user's information from AuthContext
   const { currentUser } = useContext(AuthContext);
 
+  // Query client instance to manage cache
   const queryClient = useQueryClient();
 
+  // Mutation to handle creating a new post
   const mutation = useMutation((newPost) => {
     return makeRequest.post("/posts", newPost);
   },
@@ -35,15 +41,20 @@ const Share = () => {
     }
   );
 
+  // Function to handle the "Share" button click
   const handleClick = async (event) => {
     event.preventDefault();
     let imgUrl = "";
+    // Upload the file if available and get the image URL
     if (file) imgUrl = await upload();
+    // Create a new post using the description and image URL
     mutation.mutate({ desc, img: imgUrl });
+    // Reset input fields
     setDesc("");
     setFile(null);
   };
 
+  // Base URL for image
   const imgUrl = "http://localhost:8080/api/uploads/";
 
   return (

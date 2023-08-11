@@ -76,7 +76,7 @@ const Update = ({ setOpenUpdate, user }) => {
     event.preventDefault();
     if (window.confirm("Are you sure you want to deactivate your account?")) {
       try {
-        const response = await makeRequest.delete(`/users/${currentUser.id}`);
+        const response = await makeRequest.delete(`/auth/${currentUser.id}`);
         if (response.status === 200) {
           logout();
           navigate("/");
