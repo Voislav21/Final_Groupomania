@@ -39,7 +39,9 @@ Alternitavley you can just copy and paste the dumpfile into your IDE (workbench)
 ```cd frontend```   
 ```npm run dev```  
 ## Accessing the Application
-Open your web browser and navigate to http://localhost:3000 to access the running React app.   
+Open your web browser and navigate to http://localhost:3000 to access the running React app.  
+## ATTENTION!  
+*It is crucial that you use http://localhost:3000 and not the link in the terminal output!*
 
 ## Notes
 This documentation provides a basic setup guide. Depending on your environment and requirements, you may need to modify some steps.
