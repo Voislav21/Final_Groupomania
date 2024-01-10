@@ -4,7 +4,7 @@
   "description": "Backend for Groupomania app",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon server"
+    "start": "nodemon server.js"
   },
   "author": "",
   "license": "ISC",
