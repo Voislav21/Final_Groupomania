@@ -55,6 +55,6 @@ app.use("/api/likes", likeRoutes); // Like-related routes
 app.use("/api/friendships", friendshipRoutes); // Friendship-related routes
 
 // Start the server
-app.listen(process.env.PORT, () => {
+app.listen(8080, () => {
   console.log("Api Working!")
 });
