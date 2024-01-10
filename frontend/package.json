@@ -1,6 +1,7 @@
 {
   "name": "vite",
   "private": true,
+  "homepage": "https://groupomania-voislav.com",
   "version": "0.0.0",
   "type": "module",
   "scripts": {
