@@ -31,7 +31,7 @@ const Login = () => {
 		// Define submission function
 		onSubmit: async (values, { setErrors }) => {
 			try {
-				const response = await axios.post("https://195.35.2.197:8080/api/auth/login", values, {
+				const response = await axios.post("http://api.groupomania-voislav.com/api/auth/login", values, {
 					withCredentials: true,
 				});
 				navigate("/");

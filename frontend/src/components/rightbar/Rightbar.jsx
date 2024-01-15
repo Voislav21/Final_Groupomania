@@ -20,7 +20,7 @@ const Rightbar = ({ profile }) => {
     }),
   );
 
-  const imgUrl = "https://195.35.2.197:8080/api/uploads/";
+  const imgUrl = "http://api.groupomania-voislav.com/api/uploads/";
 
   const HomeRightBar = () => {
     return (
