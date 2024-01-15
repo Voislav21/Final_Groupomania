@@ -4,7 +4,7 @@ import profileDefault from "../../assets/profile-default.jpeg";
 import { Link } from "react-router-dom";
 
 const SearchResults = ({ results, onResultClick }) => {
-  const imgUrl = "http://localhost:8080/api/uploads/";
+  const imgUrl = "http://195.35.2.197:8080/api/uploads/";
 
   return (
     <div className="search-results-box">

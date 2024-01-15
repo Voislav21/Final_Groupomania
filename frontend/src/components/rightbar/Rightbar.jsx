@@ -20,7 +20,7 @@ const Rightbar = ({ profile }) => {
     }),
   );
 
-  const imgUrl = "http://localhost:8080/api/uploads/";
+  const imgUrl = "http://195.35.2.197:8080/api/uploads/";
 
   const HomeRightBar = () => {
     return (

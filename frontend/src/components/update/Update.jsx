@@ -89,7 +89,7 @@ const Update = ({ setOpenUpdate, user }) => {
     }
   };
 
-  const imgUrl = "http://localhost:8080/api/uploads/";
+  const imgUrl = "https://195.35.2.197:8080/api/uploads/";
 
   return (
     <div className="update">
