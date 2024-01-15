@@ -35,7 +35,7 @@ const Navbar = () => {
   const { currentUser } = useContext(AuthContext);
   const { logout } = useContext(AuthContext);
   const navigate = useNavigate();
-  const imgUrl = "http://195.35.2.197:8080/api/uploads/";
+  const imgUrl = "https://195.35.2.197:8080/api/uploads/";
 
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
