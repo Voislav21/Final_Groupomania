@@ -9,7 +9,7 @@ const NewsWindow = () => {
   const [newsData, setNewsData] = useState([]);
 
   useEffect(() => {
-    const API_URL = "https://api.collectapi.com/news/getNews?country=tr&tag=general";
+    const API_URL = "https://api.collectapi.com/news/getNews?country=en&tag=general";
     const API_KEY = "apikey 1PTssK24XYYbW4uPJZbJIR:3ZOziozn9TMv9nhGMDXkuV";
 
     axios.get(API_URL, {
