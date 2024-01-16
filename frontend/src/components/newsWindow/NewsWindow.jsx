@@ -19,7 +19,7 @@ const NewsWindow = () => {
       }
     })
       .then((response) => {
-        setNewsData(response.data.results)
+        setNewsData(response.data.result)
       })
       .catch((error) => {
         console.error("Error fetching news data:", error);
