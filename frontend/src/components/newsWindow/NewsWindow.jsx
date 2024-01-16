@@ -39,10 +39,10 @@ const NewsWindow = () => {
       <h2>Latest News</h2>
       <Slider {...carouselSettings}>
         {newsData.map((article) => (
-          <div key={article.title}>
+          <div key={article.name}>
             <a href={article.url} target="._blank" rel="noopener noreferrer">
-              <h3>{article.title}</h3>
-              <img src={article.urlToImage} alt="" />
+              <h3>{article.name}</h3>
+              <img src={article.image} alt="" />
             </a>
           </div>
         ))}
