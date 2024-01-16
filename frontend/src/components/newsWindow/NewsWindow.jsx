@@ -9,7 +9,7 @@ const NewsWindow = () => {
   const [newsData, setNewsData] = useState([]);
 
   useEffect(() => {
-    const API_URL = "https://newsapi.org/v2/top-headlines?sources=techcrunch&apiKey=dae31aaacc5c4f4687a4c0539819619a";
+    const API_URL = "https://newsdata.io/api/1/news?apikey=pub_36515a7b0067c31bc4202efe6cd2553c077bb&q=tech ";
 
     axios.get(API_URL)
       .then((response) => {
