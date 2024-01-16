@@ -50,7 +50,7 @@ const Navbar = () => {
   // Function to handle user logout
   const handleLogout = async () => {
     try {
-      const response = await axios.post("http://localhost:8080/api/auth/logout", {
+      const response = await axios.post("https://api.groupomania-voislav.com/api/auth/logout", {
         withCredentials: true,
       });
       navigate("/");
@@ -65,7 +65,7 @@ const Navbar = () => {
     const query = event.target.value;
     setSearchQuery(query);
     try {
-      const response = await axios.get(`http://localhost:8080/api/users/search?q=${query}`);
+      const response = await axios.get(`https://api.groupomania-voislav.com/api/users/search?q=${query}`);
       setSearchResults(response.data);
     } catch (error) {
       console.error("Error occurred during search:", error);
