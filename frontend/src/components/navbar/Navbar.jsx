@@ -35,7 +35,7 @@ const Navbar = () => {
   const { currentUser } = useContext(AuthContext);
   const { logout } = useContext(AuthContext);
   const navigate = useNavigate();
-  const imgUrl = "http://api.groupomania-voislav.com/api/uploads/";
+  const imgUrl = "https://api.groupomania-voislav.com/api/uploads/";
 
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);

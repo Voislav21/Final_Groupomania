@@ -75,7 +75,7 @@ const Post = ({ post }) => {
   };
 
   // Base URL for image
-  const imgUrl = "http://api.groupomania-voislav.com/api/uploads/";
+  const imgUrl = "https://api.groupomania-voislav.com/api/uploads/";
 
   return (
     <div className="post">
