@@ -57,7 +57,7 @@ const Profile = () => {
 	};
 
 	// Base URL for image
-	const imgUrl = "https://api.groupomania-voislav.com/api/uploads/";
+	const imgUrl = `${import.meta.env.VITE_API_BASE_URL}/api/uploads/`;
 
 
 	return (

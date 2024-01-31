@@ -31,7 +31,7 @@ const Register = () => {
     onSubmit: async (values, { setErrors }) => {
       try {
         // Send a POST request to register a new user
-        await axios.post("https://api.groupomania-voislav.com/api/auth/register", values);
+        await axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/auth/register`, values);
 
         // Update formSubmit state and navigate to login page
         setFormSubmit(true);

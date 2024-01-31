@@ -31,7 +31,7 @@ const Login = () => {
 		// Define submission function
 		onSubmit: async (values, { setErrors }) => {
 			try {
-				const response = await axios.post("https://api.groupomania-voislav.com/api/auth/login", values, {
+				const response = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/auth/login`, values, {
 					withCredentials: true,
 				});
 				navigate("/");
