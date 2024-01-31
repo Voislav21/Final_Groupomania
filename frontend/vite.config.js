@@ -9,6 +9,6 @@ export default defineConfig({
     port: "3000",
   },
   define: {
-    'import.meta.env.VITE_API_BASE_URL': JSON.stringify(import.meta.env.VITE_API_BASE_URL),
+    'process.env.VITE_API_BASE_URL': JSON.stringify(import.meta.env.VITE_API_BASE_URL),
   },
 });
